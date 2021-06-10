@@ -1,0 +1,18 @@
+index:
+    path: /ejemplo
+    controller: App\Controller\EjemploController::index
+
+
+# Users
+admin_users:
+   path: /admin/users
+   controller: App\Controller\Admin\AdminUserController::index
+admin_user_create:
+   path: /admin/admin_user_create
+   controller: App\Controller\Admin\AdminUserController::createUser
+admin_user_edit:
+   path: /admin/admin_user_edit/{id}
+   controller: App\Controller\Admin\AdminUserController::editUser
+admin_user_activedeactive:
+   path: /admin/user_activedeactive/{id}
+   controller: App\Controller\Admin\AdminUserController::activedeactiveUser

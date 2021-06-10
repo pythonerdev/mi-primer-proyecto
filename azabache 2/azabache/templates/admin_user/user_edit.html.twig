@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestión de Usuarios{% endblock %}
+
+
+{% block titlepage %}Edición de Usuario{% endblock %}
+{% block breadcrubms %}
+    <li><a href="index.html">Home</a></li>
+	<li><a href="{{ path('admin_users') }}"><span>Usuarios</span></li>
+	<li><span>Edición de Usuarios</span></li>
+{% endblock %}
+
+{% block maincontentarea %}
+	<div class="row">
+		<div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">{% trans %}Datos del Usuario{% endtrans %}</div>
+                <div class="card-body">
+                    {{ form_start(user_edit) }}
+                        {{ form_row(user_edit.name) }}
+                        {{ form_row(user_edit.surname) }}
+                        {{ form_row(user_edit.email) }}
+                        {{ form_row(user_edit.iniciales) }}
+                        {{ form_row(user_edit.username) }}
+                        {{ form_row(user_edit.newpassword) }}
+                        {{ form_row(user_edit.password) }}
+                        {{ form_row(user_edit.locale) }}
+                        {{ form_row(user_edit._token) }}
+                        {{ form_row(user_edit.roles) }}
+                        <input type="hidden" name="referer" value="{{app.request.headers.get('referer')}}"/>
+                        {{ form_row(user_edit.submit) }}
+                    {{ form_end(user_edit,{'render_rest': false}) }}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

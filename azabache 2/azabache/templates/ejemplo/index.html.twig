@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EjemploController!{% endblock %}
+
+{% block maincontentarea %}
+	<div class="row">
+		<div class="col-6 col-sm-3">
+            <div class="card card-bordered">
+                <div class="card-body text-center">
+                    <h3><i class="ti-user"></i></h3>
+                    <h5 class="title">USUARIOS</h5>
+                    <p class="card-text">{{ users|length }}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block cabecera_escritorio %}
+	<h2 class="title-1">{% trans %}User Profile{% endtrans %}</h2>
+{% endblock %}
+  
+{% block central_content %}
+	<div class="row">
+		<div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">{% trans %}Edit your profile{% endtrans %}</div>
+                <div class="card-body">
+                    {{ form_start(user_edit) }}
+                        {{ form_row(user_edit.name) }}
+                        {{ form_row(user_edit.surname) }}
+                        {{ form_row(user_edit.email) }}
+                        {{ form_row(user_edit.dni) }}
+                        {{ form_row(user_edit.username) }}
+                        {{ form_row(user_edit.newpassword) }}
+                        {{ form_row(user_edit.password) }}  
+                        {{ form_row(user_edit.locale) }}
+                        <div class="custom-file">
+                            {# <input type="file" class="custom-file-input" id="customFile"> #}
+                            {{form_label(user_edit.avatarfile)}}
+                            {{form_widget(user_edit.avatarfile)}}
+                            {# <label class="custom-file-label" for="customFile">Choose file</label> #}
+                        </div>
+                        {{ form_row(user_edit._token) }}
+                        <input type="hidden" name="referer" value="{{app.request.headers.get('referer')}}"/>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {{ form_row(user_edit.roles) }} 
+                        {% endif %}                   
+                        {{ form_row(user_edit.submit) }}
+                    {{ form_end(user_edit,{'render_rest': false}) }}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestión de Usuarios{% endblock %}
+
+
+{% block titlepage %}Usuarios{% endblock %}
+{% block breadcrubms %}
+	<li><a href="index.html">Home</a></li>
+	<li><span>Usuarios</span></li>
+{% endblock %}
+
+
+{% block maincontentarea %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="header-title">{% trans %}Lista de usuarios{% endtrans %}
+						<a href={{ path('admin_user_create') }} class="btn btn-primary btn-sm pull-right mb-2">		
+							{% trans %}Nuevo Usuario{% endtrans %}
+						</a>
+					</h4>
+					<div class="data-tables datatable-dark">
+						<table id="users" class="text-center">
+							<thead class="text-capitalize">
+								<tr>
+									<th>{% trans %}Nombre{% endtrans %}</th>
+									<th>{% trans %}Apellidos{% endtrans %}</th>
+									<th>Usuario</th>
+									<th>{% trans %}Roles{% endtrans %}</th>
+									<th>{% trans %}Estado{% endtrans %}</th>
+								</tr>
+							</thead>
+							<tbody>
+							{% for user in users %}
+							{% if user.active == 1 %}
+								<tr>
+								{% else %}
+								<tr class="inactivo">
+								{% endif %}
+									<td>
+										<a href="{{ path('admin_user_edit',{ 'id':user.id })}}">
+										{{ user.name }}
+										</a>
+									</td>
+									<td>
+										<a href="{{ path('admin_user_edit',{ 'id':user.id })}}">
+										{{ user.surname }}
+										</a>
+									</td>
+									<td>
+										<a href="{{ path('admin_user_edit',{ 'id':user.id })}}">
+										{{ user.username }}
+										</a>
+									</td>
+									<td>
+										{% for rol in user.roles %}
+											{{ rol }}<br>
+										{% endfor %}
+									</td>
+									<td>
+										<a href="{{ path('admin_user_activedeactive',{ 'id':user.id })}}">
+										{% if user.active == 1 %}									
+											<i class="fa fa-check-square-o"></i>								
+										{%else%}
+											<i class="fa fa-square-o"></i>
+										{% endif %}
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(function() {
+    $(document).ready(function() {
+    $('#users').DataTable({
+        "ordering": true,      
+        "pageLength": 25,
+        "columnDefs": [
+          { "orderable": false, "targets": [4] },                  
+        ],        
+        {% if app.request.getLocale()=='es' %}
+            "language": {
+            "decimal":        "",
+            "emptyTable":     "No hay datos",
+            "info":           "Mostrando _START_ de _END_ de _TOTAL_ registros",
+            "infoEmpty":      "Mostrando 0 de 0 de 0 registros",
+            "infoFiltered":   "(filtered from _MAX_ total entries)",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "Mostrados _MENU_ registros",
+            "loadingRecords": "Cargando...",
+            "processing":     "Procesando...",
+            "search":         "Buscar:",
+            "zeroRecords":    "No se han encontrado registros",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Último",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            },         
+
+            "aria": {
+                "sortAscending":  ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            }
+            }
+        {% endif %}        
+      });
+	} );
+});
+</script>
+{% endblock %}
